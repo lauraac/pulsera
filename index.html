@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+  <title>Quince Valeria</title>
+  <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+  <main class="app">
+
+    <!-- HERO (imagen + texto) -->
+    <header class="hero">
+      <img class="hero-img" src="img/img1.jpg" alt="Quince Valeria" />
+      <div class="hero-fade"></div>
+
+      <div class="hero-content">
+        <div class="brand">Dots. Memories</div>
+        <h1 class="title">Quince Valeria 🎀🎉</h1>
+        <p class="subtitle">
+          <span>14 de febrero 2016</span>
+          <span class="dot">·</span>
+          <span id="liveTime">--:--</span>
+        </p>
+      </div>
+    </header>
+
+    <!-- ACCIONES (Subir / Chat / Planning / Invitados) -->
+    <section class="actions">
+      <button class="action" id="btnUpload" type="button">
+        <span class="ico">＋</span>
+        <span class="lbl">Subir</span>
+      </button>
+
+      <a class="action" id="btnChat" href="#" target="_blank" rel="noopener">
+        <span class="ico">💬</span>
+        <span class="lbl">Chat</span>
+      </a>
+
+      <button class="action" id="btnPlanning" type="button">
+        <span class="ico">🗒️</span>
+        <span class="lbl">Planning</span>
+      </button>
+
+      <button class="action" id="btnGuests" type="button">
+        <span class="ico">👥</span>
+        <span class="lbl" id="guestCount">86</span>
+      </button>
+    </section>
+
+    <!-- CARRUSEL -->
+    <section class="carouselWrap">
+      <div class="carousel" id="carousel">
+        <!-- cards por JS -->
+      </div>
+    </section>
+
+    <!-- SECCIÓN PLANNING (ejemplo) -->
+    <section class="sheet" id="planningSection">
+      <h2>Planning</h2>
+      <div class="sheet-card">
+        <p><b>💃 Bailes</b> — 21:30</p>
+        <p><b>🍽️ Cena</b> — 22:30</p>
+        <p><b>🎂 Pastel</b> — 23:30</p>
+      </div>
+    </section>
+
+    <!-- INPUT FILE oculto para "Subir" -->
+    <input id="fileInput" type="file" accept="image/*" multiple hidden />
+
+  </main>
+
+  <script src="app.js"></script>
+</body>
+
+</html>
