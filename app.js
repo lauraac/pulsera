@@ -1,7 +1,7 @@
 // ====== CONFIGURA AQUÍ ======
 
 // 1) Link de tu grupo de WhatsApp (PÉGALO AQUÍ)
-const WHATS_GROUP_URL = "https://chat.whatsapp.com/PEGAR_AQUI_TU_GRUPO";
+const WHATS_GROUP_URL = "https://chat.whatsapp.com/Dqa2YnPKNluIrI52hQZQTh";
 
 // 2) Invitados
 const GUESTS = 86;
