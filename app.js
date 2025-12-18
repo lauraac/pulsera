@@ -130,3 +130,38 @@ setTimeout(setActiveCard, 200);
   });
   el.addEventListener("touchend", end);
 })();
+
+// ====== AUTOSCROLL SUAVE DEL CARRUSEL ======
+(function autoScrollCarousel() {
+  const carousel = document.getElementById("carousel");
+  if (!carousel) return;
+
+  let speed = 0.15; // 🔹 velocidad (entre 0.1 y 0.3 es ideal)
+  let isPaused = false;
+
+  function step() {
+    if (!isPaused) {
+      carousel.scrollLeft += speed;
+
+      // 🔁 cuando llega al final, regresa suave al inicio
+      if (
+        carousel.scrollLeft + carousel.clientWidth >=
+        carousel.scrollWidth - 1
+      ) {
+        carousel.scrollLeft = 0;
+      }
+    }
+    requestAnimationFrame(step);
+  }
+
+  // ⏸️ Pausar al tocar
+  carousel.addEventListener("touchstart", () => (isPaused = true));
+  carousel.addEventListener("mousedown", () => (isPaused = true));
+
+  // ▶️ Reanudar al soltar
+  carousel.addEventListener("touchend", () => (isPaused = false));
+  carousel.addEventListener("mouseup", () => (isPaused = false));
+  carousel.addEventListener("mouseleave", () => (isPaused = false));
+
+  requestAnimationFrame(step);
+})();
