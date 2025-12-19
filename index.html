@@ -9,17 +9,26 @@
 </head>
 
 <body>
+  <div class="sparkles-field" aria-hidden="true">
+    <span class="spark s1"></span>
+    <span class="spark s2"></span>
+    <span class="spark s3"></span>
+    <span class="spark s4"></span>
+    <span class="spark s5"></span>
+    <span class="spark s6"></span>
+  </div>
+
 
   <main class="app">
 
     <!-- HERO (imagen + texto) -->
     <header class="hero">
-      <img class="hero-img" src="img/img1.jpg" alt="Quince Valeria" />
+      <img class="hero-img" src="img/portada.png" alt="Quince Valeria" />
       <div class="hero-fade"></div>
 
       <div class="hero-content">
         <div class="brand">Memories</div>
-        <h1 class="title">Quince Allison Zoe 🎀🎉</h1>
+        <h1 class="title">💖 Quince Allison Zoe 💖</h1>
         <p class="subtitle">
           <span>14 de febrero 2016</span>
           <span class="dot">·</span>
@@ -52,21 +61,84 @@
     </section>
 
     <!-- CARRUSEL -->
+    <!-- CARRUSEL (4 tarjetas con flip + auto scroll) -->
     <section class="carouselWrap">
       <div class="carousel" id="carousel">
-        <!-- cards por JS -->
+        <!-- Tarjeta 1 -->
+        <article class="flipCard" data-link="https://lauraac.github.io/lanaXV/">
+          <div class="flipInner">
+            <div class="flipFace flipFront" style="background-image:url('img/pagina.png')">
+              <div class="cardTitle">Visita invitación 💌</div>
+            </div>
+            <div class="flipFace flipBack">
+              <h3>Invitación</h3>
+              <p>Ver toda la invitación y detalles del evento.</p>
+              <button class="goBtn" type="button">Ir</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 2 -->
+        <article class="flipCard" data-link="https://maps.app.goo.gl/xiXES4xfQpf3x8uZ8">
+          <div class="flipInner">
+            <div class="flipFace flipFront" style="background-image:url('img/maps.jpg')">
+              <div class="cardTitle">Ubicación 📍</div>
+            </div>
+            <div class="flipFace flipBack">
+              <h3>Cómo llegar</h3>
+              <p>Abrir ubicación en Google Maps.</p>
+              <button class="goBtn" type="button">Ir</button>
+            </div>
+          </div>
+        </article>
+
+        <!-- Tarjeta 3 -->
+        <!-- Tarjeta 3 · PLANNING -->
+        <article class="flipCard" data-link="#planningSection">
+          <div class="flipInner">
+
+            <!-- FRENTE -->
+            <div class="flipFace flipFront" style="background-image:url('img/planning.png')">
+              <div class="cardTitle">Planning ✨</div>
+            </div>
+
+            <!-- ATRÁS (PLANNING) -->
+            <div class="flipFace flipBack planningBack">
+              <h3>Planning 🗓️</h3>
+
+              <ul class="planningList">
+                <li>⛪ <b>Ceremonia</b> <span>17:00</span></li>
+                <li>📸 <b>Recepción</b> <span>18:30</span></li>
+                <li>💃 <b>Entrada XV</b> <span>19:00</span></li>
+                <li>👑 <b>Vals</b> <span>19:30</span></li>
+                <li>🍽️ <b>Cena</b> <span>20:30</span></li>
+                <li>🎂 <b>Pastel</b> <span>21:30</span></li>
+                <li>🎉 <b>Fiesta</b> <span>22:00</span></li>
+              </ul>
+
+              <button class="goBtn" type="button">Cerrar</button>
+            </div>
+          </div>
+        </article>
+
+
+        <!-- Tarjeta 4 -->
+        <article class="flipCard" data-link="https://drive.google.com/">
+          <div class="flipInner">
+            <div class="flipFace flipFront" style="background-image:url('img/galeria.png')">
+              <div class="cardTitle">Galería 📸</div>
+            </div>
+            <div class="flipFace flipBack">
+              <h3>Fotos</h3>
+              <p>Abrir álbum (Drive / página / lo que tú uses).</p>
+              <button class="goBtn" type="button">Ir</button>
+            </div>
+          </div>
+        </article>
+
       </div>
     </section>
 
-    <!-- SECCIÓN PLANNING (ejemplo) -->
-    <section class="sheet" id="planningSection">
-      <h2>Planning</h2>
-      <div class="sheet-card">
-        <p><b>💃 Bailes</b> — 21:30</p>
-        <p><b>🍽️ Cena</b> — 22:30</p>
-        <p><b>🎂 Pastel</b> — 23:30</p>
-      </div>
-    </section>
 
     <!-- INPUT FILE oculto para "Subir" -->
     <input id="fileInput" type="file" accept="image/*" multiple hidden />
