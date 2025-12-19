@@ -171,8 +171,3 @@ if (btnUpload && fileInput) {
   carousel.addEventListener("mouseup", resume);
   carousel.addEventListener("mouseleave", resume);
 })();
-document.querySelectorAll(".flipCard").forEach((card) => {
-  card.addEventListener("click", () => {
-    card.classList.toggle("is-flipped");
-  });
-});

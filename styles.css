@@ -1366,3 +1366,240 @@ body.no-scroll {
 .flipCard {
   touch-action: manipulation;
 }
+
+/* =========================
+   BACK premium (reverso)
+========================= */
+.flipBack {
+  /* glass + profundidad */
+  background: radial-gradient(
+      800px 280px at 20% 10%,
+      rgba(255, 42, 60, 0.18),
+      transparent 60%
+    ),
+    linear-gradient(180deg, rgba(10, 10, 10, 0.92), rgba(0, 0, 0, 0.88));
+  border: 1px solid rgba(255, 42, 60, 0.22);
+  box-shadow: 0 22px 60px rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  position: relative;
+  overflow: hidden;
+}
+
+/* brillo sutil arriba (como “reflejo”) */
+.flipBack::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(
+    500px 220px at 25% 15%,
+    rgba(255, 255, 255, 0.1),
+    transparent 55%
+  );
+  pointer-events: none;
+  opacity: 0.9;
+}
+
+/* línea decorativa superior */
+.flipBack::after {
+  content: "";
+  position: absolute;
+  left: 16px;
+  right: 16px;
+  top: 14px;
+  height: 1px;
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 42, 60, 0.55),
+    transparent
+  );
+  opacity: 0.6;
+  pointer-events: none;
+}
+
+.flipBack h3 {
+  margin: 4px 0 6px;
+  font-size: 20px;
+  font-weight: 900;
+  letter-spacing: 0.2px;
+  color: #fff;
+  text-shadow: 0 10px 30px rgba(0, 0, 0, 0.6);
+}
+
+.flipBack p {
+  margin: 0;
+  color: rgba(255, 255, 255, 0.78);
+  line-height: 1.35;
+}
+
+/* =========================
+   Botón IR premium (shimmer + glow)
+========================= */
+.goBtn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate; /* para que el brillo quede dentro */
+  cursor: pointer;
+  -webkit-tap-highlight-color: transparent;
+
+  /* tu gradiente rojo ya está bien, lo reforzamos */
+  box-shadow: 0 10px 28px rgba(255, 42, 60, 0.45);
+  transform: translateZ(0);
+}
+
+/* efecto “shimmer” encima */
+.goBtn::before {
+  content: "";
+  position: absolute;
+  inset: -2px;
+  background: radial-gradient(
+      380px 160px at 25% 30%,
+      rgba(255, 255, 255, 0.22),
+      transparent 60%
+    ),
+    linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.22), transparent);
+  opacity: 0.85;
+  mix-blend-mode: overlay;
+  transform: translateX(-40%);
+  animation: goShimmer 2.2s linear infinite;
+  pointer-events: none;
+  z-index: 0;
+}
+
+/* el texto arriba del shimmer */
+.goBtn {
+  z-index: 1;
+}
+.goBtn span,
+.goBtn {
+  position: relative;
+  z-index: 1;
+}
+
+@keyframes goShimmer {
+  0% {
+    transform: translateX(-45%);
+  }
+  100% {
+    transform: translateX(45%);
+  }
+}
+
+/* hover / active más “pro” */
+.goBtn:hover {
+  filter: brightness(1.08);
+  transform: translateY(-1px);
+}
+.goBtn:active {
+  transform: scale(0.97);
+  filter: brightness(1.02);
+}
+/* ===============================
+   BOTÓN IR · SHINE REAL (barrido)
+   MISMO efecto que la invitación
+   =============================== */
+
+.goBtn {
+  position: relative;
+  overflow: hidden;
+  isolation: isolate;
+  -webkit-tap-highlight-color: transparent;
+}
+
+/* Capa de brillo que corre */
+.goBtn::after {
+  content: "";
+  position: absolute;
+  inset: -40%;
+  background: linear-gradient(
+    120deg,
+    transparent 30%,
+    rgba(255, 255, 255, 0.22) 45%,
+    rgba(255, 43, 106, 0.35) 55%,
+    transparent 70%
+  );
+  transform: translateX(-30%);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* PC */
+.goBtn:hover::after {
+  opacity: 1;
+  animation: goBtnShine 1.2s ease forwards;
+}
+
+/* MÓVIL (tap) */
+.goBtn:active::after {
+  opacity: 1;
+  animation: goBtnShine 1.2s ease forwards;
+}
+
+/* Animación REAL (la que corre a la derecha) */
+@keyframes goBtnShine {
+  from {
+    transform: translateX(-30%);
+  }
+  to {
+    transform: translateX(30%);
+  }
+}
+
+/* ===============================
+   REVERSO · TÍTULOS Y TEXTOS
+   Estilo invitación premium
+   =============================== */
+
+/* TÍTULOS (Invitación, Cómo llegar, Fotos, Planning, etc.) */
+.flipBack h3 {
+  text-align: center; /* ✅ centrado */
+  font-family: "Great Vibes", cursive;
+  font-size: 34px;
+  font-weight: 400;
+  margin: 6px 0 10px;
+
+  color: var(--red2); /* rojo invitación */
+
+  text-shadow: 0 4px 18px rgba(138, 0, 35, 0.65),
+    0 0 26px rgba(255, 43, 106, 0.45);
+}
+
+/* SUBTÍTULOS / DESCRIPCIONES */
+.flipBack p {
+  text-align: center; /* ✅ centrado */
+  font-family: "Poppins", system-ui, sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  line-height: 1.6;
+
+  color: rgba(255, 247, 251, 0.85); /* blanco suave */
+  margin: 0 6px 10px;
+}
+
+/* LISTAS (Planning) */
+.flipBack ul,
+.flipBack li {
+  font-family: "Poppins", system-ui, sans-serif;
+}
+
+/* Ajuste especial para Planning */
+.planningBack h3 {
+  font-size: 36px; /* un poquito más grande */
+}
+
+/* separador elegante bajo títulos */
+.flipBack h3::after {
+  content: "";
+  display: block;
+  width: 48px;
+  height: 1px;
+  margin: 6px auto 0;
+
+  background: linear-gradient(
+    90deg,
+    transparent,
+    rgba(255, 43, 106, 0.75),
+    transparent
+  );
+}
