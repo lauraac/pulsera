@@ -18,16 +18,22 @@ function updateTime() {
 }
 setInterval(updateTime, 1000);
 updateTime();
+
 function refreshGuestCount() {
   const el = document.getElementById("guestCount");
   if (!el) return;
 
-  const cbName = "cbGuestCount_" + Date.now();
+  // opcional: muestra cargando
+  el.textContent = "…";
+
+  const cbName = "cbGuestCount_" + Math.floor(Math.random() * 1e9);
 
   window[cbName] = (data) => {
     try {
       if (data && data.ok && typeof data.yesCount === "number") {
         el.textContent = String(data.yesCount);
+      } else {
+        el.textContent = "0";
       }
     } finally {
       delete window[cbName];
@@ -38,6 +44,14 @@ function refreshGuestCount() {
   const s = document.createElement("script");
   s.id = cbName;
   s.src = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
+
+  // ✅ si por algo falla, que no se quede en —
+  s.onerror = () => {
+    el.textContent = "0";
+    delete window[cbName];
+    s.remove();
+  };
+
   document.body.appendChild(s);
 }
 
