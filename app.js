@@ -1,7 +1,9 @@
+const GOOGLE_SHEETS_WEBAPP_URL =
+  "https://script.google.com/macros/s/AKfycbxd_zZVNpvSQ3z4_kAOLZwM1EnnpwkA4UVuDJZ-nhr1rAA5kSoIeitBQNPf0ZmunoFHZg/exec";
+
 const WHATS_GROUP_URL = "https://chat.whatsapp.com/Dqa2YnPKNluIrI52hQZQTh";
 
 // 2) Invitados
-const GUESTS = 86;
 
 // ====== HORA EN VIVO ======
 function pad(n) {
@@ -16,13 +18,40 @@ function updateTime() {
 }
 setInterval(updateTime, 1000);
 updateTime();
+function refreshGuestCount() {
+  const el = document.getElementById("guestCount");
+  if (!el) return;
+
+  const cbName = "cbGuestCount_" + Date.now();
+
+  window[cbName] = (data) => {
+    try {
+      if (data && data.ok && typeof data.yesCount === "number") {
+        el.textContent = String(data.yesCount);
+      }
+    } finally {
+      delete window[cbName];
+      document.getElementById(cbName)?.remove();
+    }
+  };
+
+  const s = document.createElement("script");
+  s.id = cbName;
+  s.src = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
+  document.body.appendChild(s);
+}
+
+// ✅ cargar al abrir
+refreshGuestCount();
+
+// ✅ opcional: refrescar cada 20s
+setInterval(refreshGuestCount, 20000);
 
 // ====== BOTONES ======
 const btnChat = document.getElementById("btnChat");
 if (btnChat) btnChat.href = WHATS_GROUP_URL;
 
 const guestCount = document.getElementById("guestCount");
-if (guestCount) guestCount.textContent = String(GUESTS);
 
 // Planning (si existe la sección)
 const planningSection = document.getElementById("planningSection");
