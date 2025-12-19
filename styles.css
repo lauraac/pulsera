@@ -1603,3 +1603,30 @@ body.no-scroll {
     transparent
   );
 }
+
+/* ✅ Planning: que NO se corte, que tenga scroll interno */
+.planningBack {
+  height: 100%;
+  overflow-y: auto; /* 👈 permite ver todo */
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 14px; /* espacio para que no tape el botón */
+}
+
+/* opcional: ocultar scrollbar */
+.planningBack::-webkit-scrollbar {
+  width: 0;
+  height: 0;
+}
+
+/* la lista que no se “aplane” */
+.planningList {
+  flex: 1; /* usa el espacio disponible */
+  overflow: visible;
+}
+
+/* si el botón “Cerrar” se te pega, lo dejamos fijo abajo */
+.planningBack .goBtn {
+  position: sticky;
+  bottom: 0;
+  margin-top: 12px;
+}
