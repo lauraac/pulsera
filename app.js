@@ -1,5 +1,6 @@
 const GOOGLE_SHEETS_WEBAPP_URL =
   "https://script.google.com/macros/s/AKfycbxd_zZVNpvSQ3z4_kAOLZwM1EnnpwkA4UVuDJZ-nhr1rAA5kSoIeitBQNPf0ZmunoFHZg/exec";
+console.log("WEBAPP URL:", GOOGLE_SHEETS_WEBAPP_URL);
 
 const WHATS_GROUP_URL = "https://chat.whatsapp.com/Dqa2YnPKNluIrI52hQZQTh";
 
@@ -56,10 +57,10 @@ function refreshGuestCount() {
 }
 
 // ✅ cargar al abrir
-refreshGuestCount();
-
-// ✅ opcional: refrescar cada 20s
-setInterval(refreshGuestCount, 20000);
+document.addEventListener("DOMContentLoaded", () => {
+  refreshGuestCount();
+  setInterval(refreshGuestCount, 20000);
+});
 
 // ====== BOTONES ======
 const btnChat = document.getElementById("btnChat");
