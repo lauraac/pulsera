@@ -22,14 +22,15 @@ updateTime();
 
 function refreshGuestCount() {
   const el = document.getElementById("guestCount");
-  if (!el) return;
+  if (!el) {
+    console.warn("No existe #guestCount todavía");
+    return;
+  }
 
-  // opcional: muestra cargando
-  el.textContent = "…";
-
-  const cbName = "cbGuestCount_" + Math.floor(Math.random() * 1e9);
+  const cbName = "cbGuestCount_" + Date.now();
 
   window[cbName] = (data) => {
+    console.log("Callback recibido:", data);
     try {
       if (data && data.ok && typeof data.yesCount === "number") {
         el.textContent = String(data.yesCount);
@@ -42,12 +43,15 @@ function refreshGuestCount() {
     }
   };
 
+  const url = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
+  console.log("JSONP URL:", url);
+
   const s = document.createElement("script");
   s.id = cbName;
-  s.src = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
+  s.src = url;
 
-  // ✅ si por algo falla, que no se quede en —
   s.onerror = () => {
+    console.error("Error cargando JSONP");
     el.textContent = "0";
     delete window[cbName];
     s.remove();
