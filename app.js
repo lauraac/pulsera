@@ -26,21 +26,15 @@ async function refreshGuestCount() {
   if (!el) return;
 
   el.textContent = "⏳";
-
   try {
     const res = await fetch(`${GOOGLE_SHEETS_WEBAPP_URL}?_=${Date.now()}`, {
+      method: "GET",
       cache: "no-store",
     });
-
     const data = await res.json();
-
-    if (data && data.ok && typeof data.yesCount === "number") {
-      el.textContent = String(data.yesCount);
-    } else {
-      el.textContent = "0";
-    }
+    el.textContent = data && data.ok ? String(data.yesCount || 0) : "0";
   } catch (err) {
-    console.error("❌ fetch contador falló:", err);
+    console.error("fetch contador falló:", err);
     el.textContent = "⚠️";
   }
 }
