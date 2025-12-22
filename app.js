@@ -217,3 +217,6 @@ if (btnUpload && fileInput) {
   carousel.addEventListener("mouseup", resume);
   carousel.addEventListener("mouseleave", resume);
 })();
+document
+  .getElementById("btnGuests")
+  ?.addEventListener("click", refreshGuestCount);
