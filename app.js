@@ -20,17 +20,14 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
+// ✅ pon aquí TU webapp publicada (Apps Script /exec)
 function refreshGuestCount() {
   const el = document.getElementById("guestCount");
-  if (!el) {
-    console.warn("No existe #guestCount todavía");
-    return;
-  }
+  if (!el) return;
 
   const cbName = "cbGuestCount_" + Date.now();
 
   window[cbName] = (data) => {
-    console.log("Callback recibido:", data);
     try {
       if (data && data.ok && typeof data.yesCount === "number") {
         el.textContent = String(data.yesCount);
@@ -43,15 +40,11 @@ function refreshGuestCount() {
     }
   };
 
-  const url = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
-  console.log("JSONP URL:", url);
-
   const s = document.createElement("script");
   s.id = cbName;
-  s.src = url;
+  s.src = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
 
   s.onerror = () => {
-    console.error("Error cargando JSONP");
     el.textContent = "0";
     delete window[cbName];
     s.remove();
@@ -60,11 +53,16 @@ function refreshGuestCount() {
   document.body.appendChild(s);
 }
 
-// ✅ cargar al abrir
+// ✅ al cargar + refrescar cada 20s
 document.addEventListener("DOMContentLoaded", () => {
   refreshGuestCount();
   setInterval(refreshGuestCount, 20000);
 });
+
+// ✅ opcional: al dar click en el botón de invitados, refresca al instante
+document
+  .getElementById("btnGuests")
+  ?.addEventListener("click", refreshGuestCount);
 
 // ====== BOTONES ======
 const btnChat = document.getElementById("btnChat");
