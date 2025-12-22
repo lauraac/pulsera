@@ -1,3 +1,6 @@
+const DRIVE_UPLOAD_WEBAPP_URL =
+  "https://script.google.com/macros/s/AKfycbwORiy9kq1lDvVduLLBoUYX205xxgdCMLvPlPlR7UqgP_j9WRo6IyKlURg_Q4oQULdjCg/exec";
+
 const GOOGLE_SHEETS_WEBAPP_URL =
   "https://script.google.com/macros/s/AKfycbx3sTmlhKrzAOYRJIC8ufGr05RDo74QgeP49mhR0iweYDDNksqdbRbJmup6pnPOefCzrw/exec";
 
