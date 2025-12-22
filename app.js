@@ -72,6 +72,20 @@ if (btnPlanning) {
   });
 }
 
+function showToast(message, duration = 3000) {
+  const toast = document.getElementById("toast");
+  if (!toast) return;
+
+  toast.textContent = message;
+  toast.classList.remove("hidden");
+  toast.classList.add("show");
+
+  setTimeout(() => {
+    toast.classList.remove("show");
+    setTimeout(() => toast.classList.add("hidden"), 300);
+  }, duration);
+}
+
 // Subir (selector)
 const fileInput = document.getElementById("fileInput");
 const btnUpload = document.getElementById("btnUpload");
@@ -108,21 +122,13 @@ if (btnUpload && fileInput) {
     const files = [...(e.target.files || [])];
     if (!files.length) return;
 
-    try {
-      alert(`⏳ Subiendo ${files.length} foto(s)...`);
+    showToast(`⏳ Subiendo ${files.length} foto(s)...`);
 
-      for (const f of files) {
-        await uploadToDrive(f);
-      }
-
-      alert(
-        "✅ Listo. Revisa la carpeta de Drive (puede tardar unos segundos)."
-      );
-      fileInput.value = "";
-    } catch (err) {
-      console.error(err);
-      alert("❌ No se pudo subir. Revisa permisos del WebApp.");
+    for (const f of files) {
+      await uploadToDrive(f);
     }
+
+    showToast("✨ ¡Gracias! Tu imagen se subió a la galería 💖", 4000);
   });
 }
 
