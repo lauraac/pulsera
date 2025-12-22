@@ -20,35 +20,72 @@ function updateTime() {
 setInterval(updateTime, 1000);
 updateTime();
 
-// ✅ pon aquí TU webapp publicada (Apps Script /exec)
 function refreshGuestCount() {
   const el = document.getElementById("guestCount");
   if (!el) return;
 
-  const cbName = "cbGuestCount_" + Date.now();
+  // ✅ estado visible
+  el.textContent = "⏳";
 
+  const cbName = "cbGuestCount_" + Date.now();
+  let finished = false;
+
+  // Limpieza
+  const cleanup = () => {
+    delete window[cbName];
+    document.getElementById(cbName)?.remove();
+  };
+
+  // ✅ callback JSONP
   window[cbName] = (data) => {
+    finished = true;
     try {
+      // muestra lo que llega
+      console.log("✅ Callback recibido:", data);
+
       if (data && data.ok && typeof data.yesCount === "number") {
         el.textContent = String(data.yesCount);
       } else {
         el.textContent = "0";
       }
     } finally {
-      delete window[cbName];
-      document.getElementById(cbName)?.remove();
+      cleanup();
     }
   };
 
+  const url = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
+  console.log("🌐 Cargando JSONP:", url);
+
+  // Si ya hay un script anterior, bórralo
+  document.getElementById(cbName)?.remove();
+
   const s = document.createElement("script");
   s.id = cbName;
-  s.src = `${GOOGLE_SHEETS_WEBAPP_URL}?callback=${cbName}&_=${Date.now()}`;
+  s.src = url;
 
-  s.onerror = () => {
-    el.textContent = "0";
-    delete window[cbName];
-    s.remove();
+  // ✅ si carga pero NO ejecuta callback (por ejemplo devuelve HTML/login)
+  s.onload = () => {
+    console.log("ℹ️ Script cargó (onload). Si sigue ⏳, no ejecutó callback.");
   };
+
+  // ✅ si no pudo cargar (bloqueo, red, etc.)
+  s.onerror = () => {
+    finished = true;
+    console.log("❌ Error cargando JSONP");
+    el.textContent = "⚠️";
+    cleanup();
+  };
+
+  // ✅ timeout: si en 6s no hubo callback, te aviso
+  setTimeout(() => {
+    if (!finished) {
+      console.log(
+        "⏱️ Timeout: no llegó callback (probable HTML/login o bloqueo)"
+      );
+      el.textContent = "⚠️";
+      cleanup();
+    }
+  }, 6000);
 
   document.body.appendChild(s);
 }
@@ -217,6 +254,3 @@ if (btnUpload && fileInput) {
   carousel.addEventListener("mouseup", resume);
   carousel.addEventListener("mouseleave", resume);
 })();
-document
-  .getElementById("btnGuests")
-  ?.addEventListener("click", refreshGuestCount);
