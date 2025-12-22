@@ -75,12 +75,54 @@ if (btnPlanning) {
 // Subir (selector)
 const fileInput = document.getElementById("fileInput");
 const btnUpload = document.getElementById("btnUpload");
+
+function toBase64(file) {
+  return new Promise((resolve, reject) => {
+    const reader = new FileReader();
+    reader.onload = () => resolve(reader.result); // data:image/...;base64,...
+    reader.onerror = reject;
+    reader.readAsDataURL(file);
+  });
+}
+
+async function uploadToDrive(file) {
+  const base64 = await toBase64(file);
+
+  const payload = {
+    fileName: `${Date.now()}_${file.name}`,
+    base64,
+  };
+
+  await fetch(DRIVE_UPLOAD_WEBAPP_URL, {
+    method: "POST",
+    mode: "no-cors",
+    headers: { "Content-Type": "text/plain;charset=utf-8" },
+    body: JSON.stringify(payload),
+  });
+}
+
 if (btnUpload && fileInput) {
   btnUpload.addEventListener("click", () => fileInput.click());
-  fileInput.addEventListener("change", (e) => {
+
+  fileInput.addEventListener("change", async (e) => {
     const files = [...(e.target.files || [])];
     if (!files.length) return;
-    alert(`Seleccionaste ${files.length} foto(s).`);
+
+    try {
+      alert(`⏳ Subiendo ${files.length} foto(s)...`);
+
+      for (const f of files) {
+        await uploadToDrive(f);
+      }
+
+      alert(
+        "✅ Listo. Revisa la carpeta de Drive (puede tardar unos segundos)."
+      );
+      fileInput.value = "";
+    } catch (err) {
+      console.error(err);
+      alert("❌ No se pudo subir. Revisa permisos del WebApp.");
+    }
   });
 }
 
