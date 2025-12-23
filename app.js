@@ -59,19 +59,6 @@ if (btnChat) btnChat.href = WHATS_GROUP_URL;
 
 const guestCount = document.getElementById("guestCount");
 
-// Planning (si existe la sección)
-const planningSection = document.getElementById("planningSection");
-const btnPlanning = document.getElementById("btnPlanning");
-if (btnPlanning) {
-  btnPlanning.addEventListener("click", () => {
-    if (planningSection) {
-      planningSection.scrollIntoView({ behavior: "smooth", block: "start" });
-    } else {
-      alert("Aún no agregas la sección Planning (id='planningSection').");
-    }
-  });
-}
-
 function showToast(message, duration = 3000) {
   const toast = document.getElementById("toast");
   if (!toast) return;
@@ -84,6 +71,30 @@ function showToast(message, duration = 3000) {
     toast.classList.remove("show");
     setTimeout(() => toast.classList.add("hidden"), 300);
   }, duration);
+}
+
+const planningCard = document.getElementById("planningCard");
+const carousel = document.getElementById("carousel");
+
+if (btnPlanning && planningCard && carousel) {
+  btnPlanning.addEventListener("click", () => {
+    // 1️⃣ Scroll suave al carrusel
+    carousel.scrollIntoView({ behavior: "smooth", block: "center" });
+
+    // 2️⃣ Centrar la tarjeta Planning dentro del carrusel
+    setTimeout(() => {
+      const left =
+        planningCard.offsetLeft -
+        (carousel.clientWidth - planningCard.clientWidth) / 2;
+
+      carousel.scrollTo({ left, behavior: "smooth" });
+
+      // 3️⃣ Voltear la tarjeta automáticamente
+      setTimeout(() => {
+        planningCard.classList.add("is-flipped");
+      }, 350);
+    }, 450);
+  });
 }
 
 // Subir (selector)
