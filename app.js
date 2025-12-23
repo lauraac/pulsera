@@ -6,7 +6,7 @@ const GOOGLE_SHEETS_WEBAPP_URL =
 
 console.log("WEBAPP URL:", GOOGLE_SHEETS_WEBAPP_URL);
 
-const WHATS_GROUP_URL = "https://chat.whatsapp.com/Dqa2YnPKNluIrI52hQZQTh";
+const WHATS_GROUP_URL = "https://chat.whatsapp.com/Hv1TJc6uhKDEDhWWL6Udrt";
 
 // 2) Invitados
 
