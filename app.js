@@ -5,7 +5,9 @@ const GOOGLE_SHEETS_WEBAPP_URL =
   "https://script.google.com/macros/s/AKfycbx3sTmlhKrzAOYRJIC8ufGr05RDo74QgeP49mhR0iweYDDNksqdbRbJmup6pnPOefCzrw/exec";
 
 console.log("WEBAPP URL:", GOOGLE_SHEETS_WEBAPP_URL);
-
+const btnPlanning = document.getElementById("btnPlanning");
+const overlay = document.getElementById("planningOverlay");
+const closeBtn = document.getElementById("closePlanning");
 const WHATS_GROUP_URL = "https://chat.whatsapp.com/Hv1TJc6uhKDEDhWWL6Udrt";
 
 // 2) Invitados
@@ -265,3 +267,12 @@ if (btnUpload && fileInput) {
   carousel.addEventListener("mouseup", resume);
   carousel.addEventListener("mouseleave", resume);
 })();
+btnPlanning?.addEventListener("click", () => {
+  overlay.classList.remove("hidden");
+  document.body.classList.add("no-scroll");
+});
+
+closeBtn?.addEventListener("click", () => {
+  overlay.classList.add("hidden");
+  document.body.classList.remove("no-scroll");
+});
