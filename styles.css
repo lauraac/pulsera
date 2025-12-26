@@ -1761,7 +1761,3 @@ body.no-scroll {
 .flipFront {
   z-index: 2;
 }
-.cardTitle {
-  position: relative;
-  z-index: 3;
-}
